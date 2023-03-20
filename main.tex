@@ -1,0 +1,97 @@
+\documentclass[]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, graphicx}
+\usepackage{hhline}
+\graphicspath{{images/}}
+\usepackage[a4paper, width=150mm, top=25mm, bottom=25mm, bindingoffset=6mm]{geometry}
+%\usepackage{geometry}
+%\geometry{a4paper,total={170mm,257mm},left=20mm,top=20mm,}
+
+\usepackage{hyperref} %for links in bibliography
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\usepackage{natbib} % styling references
+
+\usepackage{float} %for anchoring figures
+
+\usepackage{subcaption} % for subtables
+\usepackage{adjustbox} % for tables that are too wide
+
+\usepackage{longtable} %tables that span several pages
+\usepackage{multirow} % multiple rows/columns in tables
+
+\usepackage{xcolor}
+
+\usepackage{csquotes}
+
+\usepackage[T1]{fontenc}
+\usepackage{titlesec, blindtext, color}
+\definecolor{gray75}{gray}{0.75}
+\newcommand{\hsp}{\hspace{20pt}}
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}\hsp}{0pt}{\Huge\bfseries}
+
+\usepackage{afterpage}
+
+% Load the parskip package with skip and indent options
+\usepackage[skip=8pt plus1pt, indent=0pt]{parskip}
+
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+
+
+
+\begin{document}
+\input{titlepage}
+\tableofcontents
+\afterpage{\blankpage}
+\pagenumbering{roman}
+
+\chapter*{Acknowledgements}
+\pagenumbering{arabic}
+%Jack Burns for saving my project countless times.
+%Rachel Sippy for being the most supportive supervisor.
+%Jennifer Sampson, Peter Koczka for introducing me to NLP.
+
+\chapter*{Declaration}
+I certify that this project report has been written by me, is a record of work carried out by me, and is essentially different from work undertaken for any other purpose or assessment.
+
+\chapter*{Abstract}
+100-200 words.
+\pagenumbering{arabic}
+
+\chapter{Introduction} %W7
+\input{chapters/introduction.tex}
+ 
+\chapter{Data Methods} %SB
+\input{chapters/data-methods}
+
+ 
+\chapter{NLP Methods} \label{methods}%SB - need diagrams
+\input{chapters/methods.tex}
+
+
+ 
+\chapter{Results} %SB - URGENT
+\input{chapters/results.tex}
+
+ 
+\chapter{Discussion} %W7
+\input{chapters/discussion.tex}
+
+ 
+\chapter{Conclusion}
+\input{chapters/conclusion.tex}
+
+\bibliographystyle{agsm}
+%\bibliographystyle{unsrt} % in order in which they appear
+\bibliography{ref}
+
+\appendix
+\chapter{Appendix}
+
+\end{document}
