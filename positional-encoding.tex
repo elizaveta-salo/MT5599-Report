@@ -1,0 +1,21 @@
+Language models process text, which is sequential data. The positions of words in a sentence do not have any inherent meaning but are still crucial to the meaning of the sentence. Therefore, positional encoding is used to enable BERT to process the sequence of words in a sentence.
+
+The positional encoding matrix $E \in \mathbb{R}^{n} \times d_{\text{model}}$ is defined as follows (\cite{geron_hands-machine_2019}):
+
+$$ \text{P}_{i,j} =
+\begin{cases}
+\sin\left(\frac{i}{10000^\frac{j}{d_{\text{model}}}}\right)
+& \text{if } j \text{ even} \\
+\cos\left(\frac{i}{10000^\frac{j-1}{d_{\text{model}}}}\right)
+& \text{if } j \text{ odd}
+\end{cases} $$
+
+where $\text{P}_{(i,j)}$ is the positional encoding for the $i$-th token and $j$-th dimension in the embedding vector, $d_{\text{model}}$ is the size of the embedding vector, and $i = 1, \dots, n$ and $j = 1, \dots, d_{\text{model}}$. The sine and cosine functions alternate for each position in the vector. The exponents $\frac{j}{d_{\text{model}}}$ and $\frac{j-1}{d_{\text{model}}}$ ensure that the encoding values have a unique pattern for each position in the sequence. (\cite{geron_hands-machine_2019})
+
+The maximum sequence length BERT can handle is set to $n = 512$ (\cite{devlin_bert_2019}), so the positional encoding values are pre-computed and stored for all possible positions in a sequence of length 512.
+The appropriate positional encoding values are selected and added to the corresponding token embeddings for the input sequence during training and inference. (\cite{geron_hands-machine_2019})
+
+Using sine and cosine functions in the positional encoding ensures that the model can distinguish between tokens based on their relative position in the sequence. (\cite{geron_hands-machine_2019})
+
+$\sin$ and $\cos$ functions are used because they are periodic (allowing them to capture relative positions of words regardless of sentence length), orthogonal (allowing them to represent different aspects of positional information without interfering with each other) and differentiable (necessary for training deep learning models like BERT). \cite{vaswani_attention_2017} (the team behind the original transformers) found that learned positional embeddings and sinusoidal positional encodings produced nearly identical results. 
+

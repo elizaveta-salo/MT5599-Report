@@ -1,0 +1,94 @@
+\section{Background}
+
+% what is an epi week?
+
+\subsection{Dengue Fever in South America}
+
+Dengue is a viral disease spread through mosquito bites, primarily by \textit{Aedes aegypti} mosquitoes. The person will have no symptoms for most dengue infections, so they will likely never know they were infected, and the infection will never get reported. However, in some cases, the disease can progress to a more severe form known as severe dengue or dengue hemorrhagic fever (\cite{noauthor_dengue_2022}).
+
+Dengue virus (DENV) transmission has rapidly increased in Argentina recently. The virus is primarily transmitted by \textit{Aedes aegypti} mosquitoes, which, although eradicated from Argentina between 1963 and 1986 \cite{curto_reinfestacion_2002}, have since reappeared in 1996 \cite{almiron_aedes_1998}. The first recorded outbreak of dengue virus from the resurgent mosquito population was in 2009, followed by further outbreaks in 2013, 2015, 2016 and 2020 \cite{robert_arbovirus_2019}. While dengue is not considered endemic across Argentina, there are areas within the country and neighbouring countries where it is endemic \cite{robert_arbovirus_2019}.
+\subsection{Location and travel in dengue transmission}
+
+Infectious disease research involves studying travel patterns. It is crucial to determine whether a disease case is locally acquired or imported to respond appropriately. Mosquito-borne diseases such as Zika, Dengue, and Chikungunya have a travel-related component as they are endemic to certain regions \cite{queiroz_overlap_2022}, \cite{noauthor_dengue_2022}. Monitoring travel patterns can help identify areas where these diseases may spread, enabling public health officials to take action to prevent further transmission. 
+
+Estallo et al., 2020 suggested that understanding the role of regional human movements throughout South America is critical in comprehending local disease transmission patterns in Cordoba, Argentina. The researchers called for further investigation into intrinsic disease dynamics like herd immunity and the importation of new serotypes.
+
+Understanding the travel patterns of Argentinian residents would shed light on potential sources of exposure to diseases outside of their area of residence and the possibility of disease transmission from one country to another, especially as DENV is endemic in several neighbouring countries. \cite{queiroz_overlap_2022}
+
+
+\section{Related Work}
+\subsection{Twitter and public health}
+
+Various data sources are used to create epidemic alerts: weather data, disease registers, news reports and indicator reports from lab-based systems. \textcolor{red}{insert reference} This data is expensive to collect and can cause delays when generating timely epidemic alerts. 
+
+Twitter has long been used as a tool within epidemiology (e.g. \cite{culotta_towards_2010}, \cite{chunara_social_2012}), and for good reasons: in addition to providing geotagged data (that allows us to follow users in time and space and model their movement patterns), the textual content of tweets can be used to derive further information about their exposure to disease and vectors, their purpose for travel, etc. The publicly available data on Twitter can be used in real-time with weather and climate data, residential data, and epidemiological data to track the transmission of the dengue virus and create more timely alerts. \cite{codeco_infodengue_2018}.
+
+As the most popular social media platform for text-based posts \cite{noauthor_digital_nodate}(DataReportal, 2023), Twitter is useful in various research contexts as tweets have several fields within their metadata from which user location can be extracted.
+%Some research teams use location data to filter their initial dataset of tweets (e.g., interested only in tweets from the Philippines), others use tweets' geotags for specific analysis (e.g. InfoDengue), a lot use location in conjunction with the textual content of tweets for topic modelling and NER (e.g. identify how public feels about a particular topic), some use tweet location with word frequency to find trends (e.g. Philippines). 
+
+The platform has been used to improve influenza forecasting \cite{paul_discovering_2014}, improve Zika virus surveillance \cite{masri_use_2019}, and assess the public's response to the Zika outbreak in the USA in 2015 \cite{fu_how_2016}. Twitter played an essential role in the Ebola outbreak in 2014 \cite{carter_how_2014} and was used to track disease activity during the 2009 flu outbreak in the USA \cite{signorini_use_2011}.
+
+In Brazil, a tool called InfoDengue \cite{codeco_infodengue_2018} captures and analyzes geotagged tweets for the mention of dengue symptoms and combines this data with epidemiological data and climate data into a pipeline that delivers a classification alert at the municipal level. The use of Twitter in dengue virus tracking has been studied extensively in Brazil \cite{gomide_dengue_2011}, \cite{jordan_using_2018}, \cite{saire_building_2019}, \cite{albinati_enhancement_2017}. One study used the textual content of tweets and geotagged data to identify infected individuals and controls and determined high-risk clusters of dengue infection \cite{souza_identifying_2019}.
+
+\cite{coberly_tweeting_2014} collected tweets from specific areas of the Philippines using location information and filtered the data based on the mention of dengue-like illness. They showed the temporal distribution of counts of new cases of dengue-like illness in the same region to show that tweets could provide a valid data source for monitoring the temporal trend of dengue-like illness. 
+
+\subsection{Location information from social media}
+
+Twitter has been extensively used to extract location information in various fields beyond epidemiological research. For instance, \cite{jin_communicating_2020} analyzed the movement of international visitors during the Gold Coast Commonwealth Games using geotagged tweets. 
+
+\cite{chandra_estimating_2011} used reply-tweet messages to estimate the city-level location of Twitter users by using the topics contained in the thread (conversation), i.e., the content of the tweets.
+
+Another study examined opinions about the Ukraine-Russia conflict using location data from user profiles. \cite{makhortykh_savedonbasspeople_2015} used hashtags to investigate a specific aspect of Russo-Ukrainian tensions. \cite{sazzed_dynamics_2022} used sentiment analysis and topic modelling on tweet content to provide insights for understanding people's perceptions of the war around the globe.
+
+Additionally, \cite{malik_crowd_2023} developed an alert system for the government authorities of Punjab province, Pakistan, that extracts data about forthcoming anti-government gatherings by analyzing the text content of tweets in real-time and extracting entities such as date, time, and location.
+
+% To pull data from Twitter, most studies used application programming interfaces (APIs) that were developed by Twitter (eg, Gardenhose and Firehose) and could be integrated into statistical software packages. Third-party APIs (eg, Twitonomy and Radian6) were also used frequently, either through contracting with a commercial vendor, purchasing tweets that match specified criteria, or using software developed by an entity outside of Twitter. Most studies either mentioned that they used an API without indicating the specific type (37%) or did not mention their method of tweet accession (13%; Table 1). Of papers that identified the API used, purposive and random sampling were equally employed. However, only 22 (7%) articles explicitly mentioned whether the API used was purposive or random in its sampling technique; when the API was named (eg, decahose, search API, and Gardenhose) but the sampling type was not noted in the article, we looked up the sampling technique in use by the API. We also found that the description of the sampling method was often not described. For instance, some Twitter APIs are purposive in nature (eg, Twitter Search API) and some are random (Twitter Firehose API) or systematic (some REST APIs). Many studies did not specify what type of sampling was used to extract tweets from Twitter or did not fully explain retrieval limitations (eg, how it might affect the sample population if only a certain number of tweets could be retrieved daily through an API). As seen in Table 2, the most common methodological approaches were as follows: thematic exploration (eg, describing the themes of conversations about e-cigarettes on Twitter) [38], sentiment mining (eg, assessing if tweets about vaccines are positive, negative, or neutral) [39], and surveillance (eg, tracking the patterns of information spread about an Ebola outbreak) [40]. Less common methodological approaches were tool evaluation (eg, using Twitter data to predict population health indices) [41] and network science (eg, examining health information flows) [42]. Different methodological approaches tended to be pursued for different topics. For example, most infectious disease research was in the domain of surveillance, whereas research about mental health and experiences with the health care system was more conducive to thematic exploration and sentiment mining. Across the 3 most common study methodological approaches (thematic exploration, sentiment mining, and surveillance), approximately one-third of the papers (36%) used machine learning (Table 2). Machine learning here is defined as an application of algorithms and statistical modeling to reveal patterns and relationships in data without explicit instruction (eg, to identify the patterns of dissemination related to Zika virus–related information on Twitter) [43]. This can be contrasted to NLP, which necessitates explicit instruction; often, NLP is used to identify and classify words or phrases from a predefined list in large data sets (eg, to identify the most common key topics used by Twitter users regarding the opioid epidemic) [44]. Of the articles reviewed, NLP was more prevalent in sentiment mining than in other types of methodological approaches.
+\cite{takats_ethical_2022}
+
+% Surveillance of communicable diseases using social media: A systematic review (Pilipiec, Samsten and Bota, 2023)
+\cite{pilipiec_surveillance_2023}
+
+\section{Contributions}
+The primary motivation behind this project is to better understand the patterns of dengue transmission by utilizing Twitter data as a source of information on the location and movement of people. This project focuses on collecting a set of tweets from Argentinian users and deriving location information from those tweets to gain insights into dengue transmission patterns.
+
+Getting location information from tweets is of broader interest to researchers from various fields, such as political and social sciences use Twitter data for location information to understand different phenomena, including the geographic distribution of political opinions and social networks \textcolor{red}{(as mentioned above)}.
+
+The primary challenge of data collection is defining and collecting a set of users that accurately represents the population of interest: individuals who live in Argentina. Previous research in dengue epidemiology has employed various methods of collecting relevant Twitter data.
+One such method involves location filtering to retrieve all tweets with a specific location within a designated timeframe \cite{cebeillac_where_2017}.
+Another involves implementing pre-selected keyword search criteria to retrieve all tweets containing the targeted word(s) within a specified time frame \cite{de_bruijn_taggs_2017}, \cite{gomide_dengue_2011}, .
+utilized a seed keyword or hashtag (\cite{missier_tracking_2016}, \cite{paul_discovering_2014}) to collect an initial dataset of tweets, then manually extracted more relevant keywords or hashtags for further data collection.
+Others have employed a combination of location filtering and keyword search (e.g. \cite{albinati_enhancement_2017}, \cite{saire_building_2019}).
+Another method is to leveraged location filtering to collect all tweets within a designated area over specified periods, extracting user handles and collecting all tweets from those users \cite{coberly_tweeting_2014}.
+Use of historical data \cite{gomide_dengue_2011}
+
+Using keywords or hashtags to identify tweets for studying the travel patterns of people in Argentina is unreliable due to the lack of specific unique terms. Twitter's location filtering feature used to be more reliable as it provided precise coordinates, but since its removal, most tweets only contain general locations.
+
+The second part of the project involves deriving location information from the collected tweets, which is also a complex task. In the tweet metadata, there are three main sources of location information:
+\begin{description}
+    \item[Geotag] Location provided by the user in a tweet, associated with coordinates, location name, and country. (which is what most researchers have used for this type of work)
+    \item[User Location] Free text field on user profile to indicate their location.
+    \item[Tweet Content] Text content of the tweet that may mention a location. (derived using NLP, which seems to be less common)
+\end{description}
+
+These three pieces of location information may or may not be measuring the same thing. In some previous work \cite{wang_enhancing_2019}, geotags and mentioned locations in tweet content were treated the same.
+
+The free text field on the user profile is a very unreliable source of user location \cite{hecht_tweets_2011}.
+
+In this project, the aim was to answer the following questions:
+\begin{enumerate}
+    \item How can tweets be collected from a geographically-defined set of users?
+    \item Can NLP be used to derive location information from tweet content? 
+    \item Are geotagged locations and mentioned locations measuring the same thing?
+\end{enumerate}
+
+%\subsubsection{Travel Patterns and Disease}
+
+%Travel patterns are of interest for many infectious diseases (COVID-19, Zika virus, Chikungunya virus, etc.). Knowing whether an infectious disease case is locally acquired (autochthonous) or imported is crucial for public health officials to determine the extent of the outbreak and respond accordingly.
+%Infectious diseases such as Zika, Dengue, and Chikungunya have a significant travel-related component, as they are primarily transmitted by mosquitoes that are endemic to particular regions.
+%Monitoring travel patterns can help public health officials identify areas where these diseases may spread and take action to prevent further transmission. 
+%For instance, if a case is identified as being locally acquired, it suggests that the disease is circulating in the community and control measures need to be implemented to prevent further transmission. On the other hand, if a case is imported or traveller-related, it may indicate a need to implement measures to prevent further importation of cases into the area.
+
+%A recent study suggested that disease dynamics in Cordoba, Argentina, may be driven by intrinsic disease dynamics like herd immunity and importation of new serotypes and called for further investigation into the role of regional human movements throughout South America to understand local patterns of disease transmission. (Estallo et al., 2020)
+%Understanding travel patterns of Argentinian residents would provide insight into sources of potential exposure to diseases outside residents' area of residence and explore the possibility that this can pass disease from one country to another. This is particularly relevant in Argentina as DENV is endemic in several neighbouring countries. (www.who.int, 2022) 
+
+

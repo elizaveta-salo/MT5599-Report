@@ -1,0 +1,64 @@
+Transformer models cannot receive raw strings as input. Instead, they assume the text has been tokenized and encoded as numerical vectors. (\cite{tunstall_natural_2022})
+
+%Before words can be turned into vectors,
+Prior to being fed into the model, the sentence undergoes a pre-processing step called tokenization, during which it is broken down from a string into the atomic units used in the model. (\cite{tunstall_natural_2022})
+
+BERT uses subword tokenization WordPiece, which means that words are first split into smaller, more frequently occurring subword units called tokens. The WordPiece tokenizer converts each token to a corresponding index in the model's vocabulary called an input ID. Each input ID represents a unique token in the vocabulary. (\cite{tunstall_natural_2022}) The final output of the tokenizer is a sequence of word IDs (as seen in Table \ref{tab:tokenizer output}). Consider the example in \ref{tab:tokenizer output}:
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{c|c|c}
+    %\hline
+    \textbf{Raw Input} & \textbf{Tokens} & \textbf{Input IDs} \\
+    \hline{}
+    &  {\fontfamily{qcr}\selectfont [CLS]}  &  {\fontfamily{qcr}\selectfont 101}  \\ 
+    My &  {\fontfamily{qcr}\selectfont My}  &  {\fontfamily{qcr}\selectfont 11590}  \\ 
+    name &  {\fontfamily{qcr}\selectfont name}  &  {\fontfamily{qcr}\selectfont 11324}  \\ 
+    is &  {\fontfamily{qcr}\selectfont is}  &  {\fontfamily{qcr}\selectfont 10124}  \\ 
+    Elizaveta &  {\fontfamily{qcr}\selectfont Eliza}  &  {\fontfamily{qcr}\selectfont 59875}  \\ 
+    &  {\fontfamily{qcr}\selectfont \#\#veta}  &  {\fontfamily{qcr}\selectfont 84379}  \\ 
+    . &  {\fontfamily{qcr}\selectfont .}  &  {\fontfamily{qcr}\selectfont 119}  \\ 
+    I'm &  {\fontfamily{qcr}\selectfont I}  &  {\fontfamily{qcr}\selectfont 146}  \\ 
+    &  {\fontfamily{qcr}\selectfont '}  &  {\fontfamily{qcr}\selectfont 112}  \\ 
+    &  {\fontfamily{qcr}\selectfont m}  &  {\fontfamily{qcr}\selectfont 181}  \\ 
+    from &  {\fontfamily{qcr}\selectfont from}  &  {\fontfamily{qcr}\selectfont 10188}  \\ 
+    Aberdeen &  {\fontfamily{qcr}\selectfont Aberdeen}  &  {\fontfamily{qcr}\selectfont 49317}  \\ 
+    and &  {\fontfamily{qcr}\selectfont and}  &  {\fontfamily{qcr}\selectfont 10111}  \\ 
+    I &  {\fontfamily{qcr}\selectfont I}  &  {\fontfamily{qcr}\selectfont 146}  \\ 
+    study &  {\fontfamily{qcr}\selectfont study}  &  {\fontfamily{qcr}\selectfont 14687}  \\ 
+    at &  {\fontfamily{qcr}\selectfont at}  &  {\fontfamily{qcr}\selectfont 10160}  \\ 
+    the &  {\fontfamily{qcr}\selectfont the}  &  {\fontfamily{qcr}\selectfont 10105}  \\ 
+    University &  {\fontfamily{qcr}\selectfont University}  &  {\fontfamily{qcr}\selectfont 10404}  \\ 
+    of &  {\fontfamily{qcr}\selectfont of}  &  {\fontfamily{qcr}\selectfont 10108}  \\ 
+    St &  {\fontfamily{qcr}\selectfont St}  &  {\fontfamily{qcr}\selectfont 10838}  \\ 
+    Andrews &  {\fontfamily{qcr}\selectfont Andrews}  &  {\fontfamily{qcr}\selectfont 29583}  \\ 
+    . &  {\fontfamily{qcr}\selectfont .}  &  {\fontfamily{qcr}\selectfont 119}  \\ 
+    &  {\fontfamily{qcr}\selectfont [SEP]}  &  {\fontfamily{qcr}\selectfont 102}  \\ 
+    %\hline
+  \end{tabular}
+  \caption{Tokenized example}
+  \label{tab:tokenizer output}
+\end{table}
+
+Subword tokenization is used in the BERT NLP model to handle out-of-vocabulary (OOV)  words and reduce vocabulary size (\cite{tunstall_natural_2022}).
+The word {\fontfamily{qcr}\selectfont Elizaveta} demonstrates this; the prefix {\fontfamily{qcr}\selectfont \#\#} in {\fontfamily{qcr}\selectfont \#\#veta} means the preceding word was not whitespace, and any token with this prefix should be merged with the previous token when converting the tokens back into a string. It helps BERT break down words into smaller pieces to capture their meaning better. Additionally, it benefits BERT to keep this word out of the vocabulary, which lowers the vocabulary dimension. (\cite{tunstall_natural_2022}) The {\fontfamily{qcr}\selectfont BERT Base Cased} Tokenizer has vocabulary size $d_\text{v} = 119547$.
+
+\subsubsection{Special Tokens}
+
+Note the special tokens added by the tokenizer in Table \ref{tab:tokenizer output} - {\fontfamily{qcr}\selectfont[CLS]} and {\fontfamily{qcr}\selectfont[SEP]}. In its tokenization process, BERT uses several special tokens; their roles are described in Table \ref{tab:special-tokens}.
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|}
+    \hline
+    \textbf{{\fontfamily{qcr}\selectfont[CLS]}} & \textbf{{\fontfamily{qcr}\selectfont[SEP]}} & \textbf{{\fontfamily{qcr}\selectfont[MASK]}} \\
+    \hline{}
+    classification token &  separator token & mask token \\
+    \hline
+    Added to the beginning of every input sequence. Represents the start of a classification task. &  Used to separate two input sequences in a sequence-pair classification task. Also used to separate multiple sentences in a single input sequence. & Used during pre-training to mask some of the input tokens randomly. The BERT model is then trained to predict the original token from the masked token, which helps it learn contextualized representations. \\
+    \hline
+  \end{tabular}
+  \caption{BERT Special Tokens (\cite{tunstall_natural_2022})}
+  \label{tab:special-tokens}
+\end{table}
+

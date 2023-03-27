@@ -1,0 +1,15 @@
+$$ \text{S}_{i} =
+\begin{cases}
+\sin\left(\frac{i}{10000^\frac{j}{d_{\text{model}}}}\right)
+& \text{if } j \text{ even} \\
+\cos\left(\frac{i}{10000^\frac{j-1}{d_{\text{model}}}}\right)
+& \text{if } j \text{ odd}
+\end{cases} $$
+
+The positional encoding is added to the token embeddings before being fed into the transformer layers, allowing the model to use the sequential information to capture the context and meaning of the tokens in the input sequence. 
+To get the final input embeddings for our sentence, the embedding matrix $E$ is added to the positional embedding matrix $P$. 
+$$E + P = \textbf{x} \in  \mathbb{R}^{n \times d_{\text{model}}}$$
+Since each row in $E$ corresponds to an input embedding of a token, adding $P$ is essentially adding the token location information to the input embedding.
+
+\textcolor{red}{segment embeddings}
+https://aclanthology.org/2022.lrec-1.152.pdf

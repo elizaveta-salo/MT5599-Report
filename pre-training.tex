@@ -1,0 +1,25 @@
+Pre-training refers to the training of the body of the model.
+In BERT, pre-training to learn the contextual representation of words is done through two tasks: Masked Language Modelling (MLM) and Next Sentence Prediction (NSP) (\cite{devlin_bert_2019}).
+
+\subsection{Masked Language Modelling}
+
+In Masked Language Modelling, a certain percentage of tokens are masked, and the training objective is to predict those masked tokens. In BERT, 15\% of tokens are masked during pre-training, meaning if the $i$-th token is masked, it is replaced with the {\fontfamily{qcr}\selectfont [MASK]} token 80\% of the time, the unchanged token 10\% of the time and a random token 10\% of the time (so there is no mismatch between pre-training and fine-tuning). Then {\fontfamily{qcr}\selectfont [MASK]} (the $i$-th token) is used to predict the original token with cross-entropy loss (type of loss function used in classification tasks). (\cite{devlin_bert_2019})
+
+For example, in the sentence "I saw her {\fontfamily{qcr}\selectfont [MASK]} to hide.", the model has to predict the masked word "duck" based on the context of the rest of the sentence. BERT is forced to learn contextualized representations of all the words in the sequence because it does not know which word is masked. Remember that BERT takes into account both left and right contexts when making predictions.
+
+The goal of pre-training is to train a model that can predict the masked words based on the context of the surrounding words. This is done by minimizing the cross-entropy loss between the predicted probabilities of the masked words and their true values. (\cite{devlin_bert_2019})
+
+This is implemented by adding a classification layer on top of the encoder, multiplying the output vectors by the embedding matrix (so they are the dimension of the vocabulary) and calculating the probability of each word in the vocabulary with softmax. (\cite{devlin_bert_2019})
+
+\subsection{Next Sentence Prediction}
+
+In order to train a model that understands sentence relationships, BERT was pre-trained for a next sentence prediction task that involves predicting whether two sentences follow each other. Specifically, this is done by concatenating two sentences from the corpus to create inputs. During training, when choosing the sentences for each pre-training example, 50\% of the time the second sentence is the actual next sentence that follows the first sentence (labeled as {\fontfamily{qcr}\selectfont IsNext}), and 50\% of the time it is a random sentence from the corpus (labeled as {\fontfamily{qcr}\selectfont NotNext}) (\cite{devlin_bert_2019}).
+
+To predict if the second sentence is indeed connected to the first, the following steps are performed:
+
+The entire input sequence goes through the Transformer model. The output of the {\fontfamily{qcr}\selectfont [CLS]} token is fed into a simple classification layer. %(learned matrices of weights and biases).
+The probability of {\fontfamily{qcr}\selectfont IsNextSequence} is calculated using softmax. (\cite{devlin_bert_2019})
+
+When training the BERT model, MLM and NSP are trained together, with the goal of minimizing the combined loss function of the two strategies. (\cite{devlin_bert_2019})
+
+Together, MLM and NSP enable BERT to learn contextualized representations of words, which can then be fine-tuned for a wide range of downstream NLP tasks.(\cite{devlin_bert_2019})

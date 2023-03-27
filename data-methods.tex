@@ -1,0 +1,238 @@
+For this investigation, tweets from Argentinian residents between dates relevant to the 2016 outbreak were collected.
+
+\section{Data Collection}
+
+The relevant dates were identified by considering when dengue transmission was at its peak during the 2016 outbreak. Robert et al. 2019 reports that Cordoba’s largest dengue outbreak began in EW52 of 2015 (epidemiological week beginning on 27th December); and 822 cases were reported between EW2 (epidemiological week beginning on 10th January) and EW24 (wb 12th June), of which 134 were imported. The relevant dates chosen were 1st October 2015 to 31st October 2016 (inclusive).
+
+Tweet collection was carried out using a python library called {\fontfamily{qcr}\selectfont snscrape}. It provides
+flags to help filter tweets on criteria like location, keywords, language, etc.
+
+Two approaches for data collection were attempted:
+
+\subsection{Approach 1: People in Argentina} \label{approach-1}
+
+The initial approach to collecting tweets was to:
+
+\begin{enumerate}
+    \item Collect tweets by location (Argentina) between 1st October 2015 and 31st October 2016.
+    \item Identify Argentinian residents and visitors from the collected tweets. Residents were defined as users who had any of the cities or towns in Argentina in their user profile (extracted using a list of cities, towns and provinces in Argentina). Visitors were defined as users who tweeted in Argentina in the given time period.
+    \item Collect all the tweets from the residents and visitors from the relevant time period.
+\end{enumerate}
+
+A similar method has been used before (Philippines study) and yielded promising results, which is why it was the initial approach.
+
+The following search query was created (where {\fontfamily{qcr}\selectfont start\_date} and {\fontfamily{qcr}\selectfont end\_date} were string formats of 1st October 2015 and 1st November 2016):
+
+\fbox{
+  \parbox{\textwidth}{
+    \begin{center}
+    {\fontfamily{qcr}\selectfont near:Argentina within:10km since:\{start\_date\} until:\{end\_date\}}
+    \end{center}
+  }
+}
+
+Changing {\fontfamily{qcr}\selectfont near:Argentina} to {\fontfamily{qcr}\selectfont geocode:lat,long:radius} (with {\fontfamily{qcr}\selectfont lat} and {\fontfamily{qcr}\selectfont long} being in central Argentina) and changing radius to {\fontfamily{qcr}\selectfont 50km} and {\fontfamily{qcr}\selectfont 100km}, did not result in significantly more tweets. The above query resulted in 1,057,420 tweets, of which 259 came from residents and 5520 came from visitors.
+Collecting tweets from all the residents and visitors from 1st October 2015 to 31st October 2016 resulted in 7,686,543 tweets. Of these, 1,997,087 were geotagged. The breakdown of countries is shown in Table \ref{tab:attempt1}.
+
+\begin{table}[H]
+    \begin{subtable}[h]{0.5\textwidth}
+        \centering
+        \begin{tabular}{r|l}
+        \textbf{Country} & \textbf{No. Tweets} \\
+        \hline
+        Costa Rica & 1599239 \\
+        United States & 109470 \\
+        Nicaragua & 47431 \\
+        Argentina & 27279 \\
+        Spain & 22944 \\
+        Mexico & 20541 \\
+        United Kingdom & 10514 \\
+        Canada & 9717 \\
+        Panama & 9545 \\
+        Colombia & 9155 \\
+        Brazil & 8879 \\
+        Russia & 8464 \\
+        Chile & 6613 \\
+        Poland & 5750 \\
+        Venezuela & 5712 \\
+        Australia & 4057 \\
+        India & 3993 \\
+        Italy & 3914 \\
+        Germany & 3783 \\
+        Malaysia & 3763 \\
+        Other & 72970 \\
+        
+        \end{tabular}
+       \caption{Attempt 1}
+       \label{tab:attempt1}
+    \end{subtable}
+    \hfill
+    \begin{subtable}[h]{0.5\textwidth}
+        \centering
+        \begin{tabular}{r|l}
+            \textbf{Country} & \textbf{No. Tweets} \\
+            \hline
+            Argentina & 2157309 \\
+            USA & 532081 \\
+            Brazil & 131189 \\
+            Chile & 97427 \\
+            Spain & 96466 \\
+            Italy & 94749 \\
+            France & 71005 \\
+            Mexico & 69886 \\
+            United States & 67970 \\
+            Colombia & 48817 \\
+            Venezuela & 40560 \\
+            Uruguay & 39403 \\
+            UK & 38552 \\
+            Puerto Rico & 28763 \\
+            Japan & 27415 \\
+            China & 25588 \\
+            Germany & 23716 \\
+            Paraguay & 22557 \\
+            Bulgaria & 21419 \\
+            Peru & 21268 \\
+            Other & 464182 \\
+        \end{tabular}
+        
+        \caption{Attempt 2}
+        \label{tab:attempt2}
+     \end{subtable}
+     \caption{Breakdown of Geotagged Countries in Datasets}
+     \label{tab:attempts}
+\end{table}
+
+Although the logic behind this data collection method made sense, there were a few issues: 
+
+\begin{enumerate}
+    \item Strong bias towards Costa Rica: over 80\% of geotagged tweets were from Costa Rica, and only 1.37\% were from Argentina. It’s unclear why this happened.
+    \item Not enough data. By some estimates \cite{noauthor_digital_nodate} Argentina had 5.9 million Twitter users in early 2022, and a population of 43,590,368 people in 2016. Given this, 5779 user handles (<0.05\% of population) was unsatisfactory.
+\end{enumerate}
+
+Due to the poor performance of this data collection method, it was discarded.
+
+\subsection{Approach 2: Spanish Speakers} \label{approach-2}
+
+There are about 200 billion tweets posted yearly (blog.twitter.com, 2014). 11 billion of tweets (of 118 billion sample collected between 2009 and 2020) were in Spanish \cite{alshaabi_growing_2021}, which is around 9.3\% , which is a significant proportion. 
+In 2016, 447,335,015 people spoke Spanish worldwide, 43,590,638 of which were in Argentina \cite{vitores_espanol_2016}. This means 9.74\% of the Spanish speaking population lives in Argentina. 
+
+A significant proportion of Twitter users spoke Spanish, and a significant proportion of them were from Argentina, therefore the approach to the data collection was to:
+
+\begin{enumerate}
+    \item Collect all the Spanish tweets from three randomly selected days in the given time period (1st December 2015, 15th April 2016, 30th October 2016). This resulted in 1,655,473 tweets from 417,185 users. Of those, 629,803 were geotagged with "Argentina", which corresponded to 113,632 handles.
+    \item Collect all the tweets from these users from the given time period. This yielded 182,571,272 tweets from 89,369 users (some handles could not be scraped due to Twitter errors). Of those, 56,435,136 were geotagged.
+\end{enumerate}
+
+Compared to 5779 handles from Attempt 1, 89,369 was much more satisfactory. These refer to Twitter users who speak Spanish and have shared a tweet with Argentina as the location during the selected three days, indicating they could either be residents or visitors.
+
+The country breakdowns from this data collection are shown in Table \ref{tab:attempt2}.
+
+This method of data collection appears to be novel and has not been previously studied.
+
+The attributes of the data collected and the methods used to process it are discussed in the following section (Section \ref{data-processing}).
+
+\section{Data Processing Methods} \label{data-processing}
+
+\subsection{Original Data}
+
+When the tweets were collected, the tweets contained the following metadata, shown in Table \ref{table:original-columns}.
+
+\input{chapters/extras/original-columns}
+
+The original data contained each of the above attributes in separate columns. Not every tweet had a value for each of the attributes. For example, if the tweet did not contain any hashtags, then the hashtags would be an empty list. If the tweet did not have a geotag, the {\fontfamily{qcr}\selectfont place} and {\fontfamily{qcr}\selectfont coordinates} objects were set to {\fontfamily{qcr}\selectfont None}.
+
+\subsection{Text Processing Approaches}
+
+This data already has many potential uses – with over 56 million geotagged tweets, this data alone could allow the origin, destination and timing of regional movements to be tracked and analyzed. The dataset was first processed to make use of {\fontfamily{qcr}\selectfont content} attribute. The following approaches were considered:
+
+\begin{description}
+
+    \item[Topic Modelling]
+    Topic modelling is commonly used in tweet analysis in epidemiology \cite{missier_tracking_2016}, \cite{chen_syndromic_2015}, \cite{paul_discovering_2014}, \cite{wicke_framing_2020} as it provides insight into public’s perceptions of outbreaks, helping identify sarcasm, misinformation, reports of cases or symptoms, expressing specific concerns, etc. 
+
+    In the context of this study, topic modelling on all the tweets would be excessive. However, the tweets could be narrowed down using keywords (e.g. dengue, fever, mosquitoes, travel) to better understand what kind of information could be extracted using other NLP techniques further down the line.
+    
+    \item[Medical NER]
+    Dengue virus often has mild, non specific symptoms and cases may be underreported unless the affected person has severe dengue fever. A Named Entity Recognition (NER) model trained on medical data could be used to extract symptoms and disease names from the tweets collected. This could be considered alongside the geotagged data to determine when and where people were tweeting about dengue-like symptoms. 
+
+    Unfortunately, the NER models available were trained on more technical texts, not short texts like tweets, therefore this approach did not yield promising preliminary results.
+
+    \item[Geoparsing]
+    Geoparsing is the process of extracting location data from unstructured text (like a tweet) and mapping it to an exact location (with exact coordinates). If location information could be extracted from the textual content of tweets, it would give a more precise location of the user (to help identify if they were in a zone of transmission), identify a purpose of travel (e.g. they mentioned a museum while travelling to a different city, or moving to University) The principle would help us supplement the 1\% of geotagged tweets. 
+    
+    There are many geoparsers that have been developed \cite{de_bruijn_taggs_2017}, \cite{wang_enhancing_2019}. Even some trained specifically on Spanish \cite{gelernter_cross-lingual_2013}, and ones trained on tweets \cite{de_bruijn_taggs_2017}. However, there were many obstacles: some geoparsers were in Python 2, others had strict limits of use unless money was paid, others yet were no longer available (GeoTxt - the website does not work anymore (Karimzadeh et al., 2019), Yahoo PlaceSpotter API - discontinued in 2016)), some performed poorly on uncased data (\cite{noauthor_welcome_nodate}).
+    
+    The approach settled on was the use of an NER model, followed by Google’s Geocoding API (Google Developers, n.d.) to disambiguate the extracted location names. Prior to starting this process, the tweets would be cleaned (by removing emojis, hashtags, links).
+    
+    To evaluate this method, the geodesic distance method could be calculated between the tweet’s geotag (provided by user) and the mentioned location’s coordinates. 
+    
+\end{description}
+
+Due to time constraints, it was decided that only geoparsing would be performed. There are many text processing techniques available that could enhance the usability of the raw data, and those should be considered in further analysis.
+
+All of the above methods of analysis require the use of Natural Language Processing (NLP). In 2017, the world of NLP was revolutionized by a paper called “Attention is All you Need”. The details of geoparsing analysis are discussed in Chapter \ref{methods}.
+
+\subsection{Data Cleaning Steps}
+
+The following was done to modify the original datasets:
+\begin{enumerate}
+    \item {\fontfamily{qcr}\selectfont cashtags, hashtags, likeCount, media, mentionedUsers, quoteCount, quoteTweet, renderedContent, replyCount, retweetCount, retweetedTweet, source} columns were removed.
+    
+    \item The {\fontfamily{qcr}\selectfont place} object was broken down into its attributes, which were stored in columns {\fontfamily{qcr}\selectfont place\_name, place\_full\_name, place\_type, place\_country, place\_country\_code}.
+    
+    \item The {\fontfamily{qcr}\selectfont coordinates} object was broken down into its attributes, which were stored in columns {\fontfamily{qcr}\selectfont coordinates\_longitude, coordinates\_latitude}
+    
+    \item The {\fontfamily{qcr}\selectfont user} object was broken down into its attributes, which were stored in columns {\fontfamily{qcr}\selectfont user\_id, user\_location}. The original {\fontfamily{qcr}\selectfont user} column was discarded.
+    
+    \item The {\fontfamily{qcr}\selectfont content} column was cleaned using Regex to normalize the characters (several characters can be expressed in various ways,
+    remove mentions, links, some symbols (\@ \#, /n), emoticons and emojis, symbols and pictographs, transport and map symbols, flags (iOS). The cleaned tweet was stored in column {\fontfamily{qcr}\selectfont tweet\_cleaned}, and the {\fontfamily{qcr}\selectfont content} column was renamed to {\fontfamily{qcr}\selectfont tweet\_content}.
+
+    \item The column {\fontfamily{qcr}\selectfont tweet\_cleaned} was processed through an NER model to extract named entities from {\fontfamily{qcr}\selectfont LOC, ORG, PER} categories. New columns {\fontfamily{qcr}\selectfont ner\_word} and {\fontfamily{qcr}\selectfont ner\_type} were created to contain the named entity and its type. If a tweet contained more than one named entity, the tweet was duplicated so each named entity was on a separate row with its corresponding tweet.
+
+    \item All values in {\fontfamily{qcr}\selectfont ner\_word} such that the corresponding {\fontfamily{qcr}\selectfont ner\_type == LOC} were collected, a value count was performed, and all those extracted locations whose counts were above 8 and of character length over 3 were passed through the Google Geocoding API to obtain the latitude {\fontfamily{qcr}\selectfont gmaps\_lat}, longitude {\fontfamily{qcr}\selectfont gmaps\_long} and full address {\fontfamily{qcr}\selectfont gmaps\_address}.
+
+    \item For all the tweets that contained both geotagged and mentioned sets of coordinates, the geodesic distance was calculated using the Python {\fontfamily{qcr}\selectfont geopy} package. This distance was stored in the {\fontfamily{qcr}\selectfont distance column}.
+\end{enumerate}
+
+The final dataset columns are described in Table \ref{table:final-columns}. 
+\input{chapters/extras/final-columns}
+    
+\section{Evaluation Metrics for Geotagged and Geoparsed Tweets}
+
+In previous research on geoparsers, Euclidean distance was used to compare the geoparsed with ground truth locations. In this project, geodesic distance was used instead to account for the curvature of the Earth.
+
+The first few metrics chosen were chosen because they are commonly used to evaluate geoparsers (but instead of Euclidean distance, geodesic distance was used):
+
+\begin{description}
+    \item[Mean Error Distance (MED)]
+    Computes geodesic distance between locations. Calculated using:
+    \begin{equation}
+      \text{MED} = \frac{\sum_{i=1}^{N} d_i}{N}
+    \end{equation}
+    where $N$ is the number of annotated toponyms that are recognised by a geoparser. $(x_i, y_i)$ are the annotated coordinates and $(x'_i, y'_i)$ are the geoparsed coordinates.
+
+    \item[Median Error Distance (MdnED)]
+    Another metric that was more robust to outliers was chosen that computes the median value of the error distances called Median Error Distance.
+    \begin{equation}
+      \text{MED} = \text{Median}({d_i})
+    \end{equation}
+    where $ed_i$ is the $i$th error distance.
+
+    \item[Accuracy@Distance]
+    Accuracy@Distance calculates the proportion of annotated tweets that are geolocated within a given distance (in km) of the geotagged tweets. The motivation behind this metric is that the geographic coordinates of a place in Google Geoparser API used for geoparsing may be different from the annotated coordinates.
+    \begin{equation}
+      \text{Accuracy@Distance} = \frac{|{(d_i | d_i \leq \text{distance} i \in [1, N]}|}{N}
+    \end{equation}
+    where $ed_i$ is the $i$th error distance.
+    The metric Accuracy@161 was proposed in EUPEG.
+
+    %\item[Area Under the Curve (AUC)]
+    
+    %AUC is a metric that quantifies the overall deviation between mentioned locations and geotagged locations. %AUC is computed by first plotting a curve of the normalized log error distance and then calculating the total area under the curve. 
+    %The horizontal axis represents the index of the toponyms ranked from small to large error distances. A majority of toponyms are typically located at the correct locations, and therefore have errors as zero. However, once the error distance starts to appear, it can increase rapidly. The vertical axis represents the normalized log error distance of the mentioned toponyms. AUC is the total area under the curve calculated using Equation 8, where Max Error is the maximum possible error distance (half of the Earth’s circumference) between the ground truth and the geoparsed location. A better geoparser should have a lower AUC.
+
+    %\begin{equation} 
+    %  \text{AUC} = \int_{i=1}^N{\frac{\ln{(ed_i+1)}}{\ln{(MaxError)}}di}
+    %\end{equation}
+    %where $ed_i$ is the $i$th error distance.
+\end{description}

@@ -1,0 +1,48 @@
+The input embedding layer in BERT is a lookup table that maps each token in the input sequence to a high-dimensional vector representation (called the dimension of the model $d_\text{model} = 768$). The goal of the embedding layer is to transform the discrete input tokens into a continuous vector space where semantically similar words are closer to each other in this space. (\cite{rohrer_transformers_2021})
+
+At this point, the word \textit{duck} has the same vector representation in both \textit{I saw her duck, it was so cute!} and \textit{I saw her duck down to hide}. The embeddings are not contextualised yet. Each token has an initial embedding that will later be adjusted to contain more information. (\cite{geron_hands-machine_2019})
+
+In BERT, token IDs are often converted to one-hot vectors as an intermediate step in the process of obtaining token embeddings (\cite{tunstall_natural_2022}), (\cite{rohrer_transformers_2021}). Assume $ s = \begin{pmatrix} s_1 , s_2 , \dots , s_n \end{pmatrix} $ is a sequence of token IDs. Each token ID $s_j$ can be represented as a one-hot vector $S_j$, where $i = 1, \dots, d_{\text{vocab}}$:
+
+$$ (S_j)_i = \begin{cases} 1 & \text{if } i = s_j \\ 0 & \text{otherwise} \end{cases} $$
+
+Which can also be represented as a matrix of one-hot vectors $S \in \mathbb{R}^{n \times d_{\text{vocab}}}$.
+
+$S$ is then multiplied by the lookup matrix $ L \in \mathbb{R}^{d_{\text{vocab}} \times d_{\text{model}}}$ to obtain the corresponding token embedding matrix $E \in \mathbb{R}^{n \times d_{\text{model}}}$.
+$L$ contains the token embeddings for each token in the vocabulary. (\cite{geron_hands-machine_2019})
+
+Consider the first row of $S$, which corresponds to $s_1$ token ID. If $1$ is in 101th place, only the 101th row of $L$ will be extracted. The first row of matrix $E$ will then correspond to the input embedding associated with 101th token.
+
+$$
+\underbrace{
+    \begin{pmatrix}
+    0 & \cdots & 0 & 1 & 0 & \cdots & 0 \\
+    0 & \cdots & 0 & 0 & 0 & \cdots & 0 \\
+    \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots \\
+    0 & \cdots & 0 & 0 & 0 & \cdots & 0
+    \end{pmatrix}
+}_{S\in \mathbb{R}^{n \times d_{\text{v}}}}
+\overbrace{
+    \begin{pmatrix}
+    \cdots & \cdots & \cdots & \cdots \\
+    \cdots & \cdots & \cdots & \cdots \\
+    0.273  & 0.128  & \cdots & 0.879 \\
+    \cdots & \cdots & \cdots & \cdots \\
+    \cdots & \cdots & \cdots & \cdots \\
+    \cdots & \cdots & \cdots & \cdots \\
+    \cdots & \cdots & \cdots & \cdots \\
+    \cdots & \cdots & \cdots & \cdots
+    \end{pmatrix}
+}^{L \in \mathbb{R}^{d_{\text{vocab}} \times d_{\text{model}}}}
+=
+\underbrace{
+    \begin{pmatrix}
+    0.273 & 0.128 & \cdots & 0.879 \\
+    \cdots & \cdots & \cdots & \cdots \\
+    \cdots & \cdots & \cdots & \cdots \\
+    \cdots & \cdots & \cdots & \cdots
+    \end{pmatrix}
+}_{E \in \mathbb{R}^{n \times d_{\text{model}}}}
+$$
+
+$E$ has $n$ rows with each row $j$ representing the embedding of the $j$-th token.

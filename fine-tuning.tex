@@ -1,0 +1,51 @@
+Fine-tuning BERT refers to training the task-specific classification head. Fine-tuning BERT for NER involves adapting the pre-trained model to the specific task of identifying entities in text. Here are the general steps for fine-tuning BERT for NER:
+
+\begin{description}
+   \item[Data Preparation:] Prepare the NER data by labeling the entities in the text and splitting the data into training, validation, and test sets. There were several datasets used to train our model (due to it being multilingual). The labeled Spanish dataset (www.clips.uantwerpen.be, 2005) consists of two columns separated by a space, with each word (and punctuation symbol) on a new line next to its named entity tag, with a blank line between sentences (See Table \ref{tab:ner-dataset}, where B denotes the first item of the phrase and I denotes a non-initial word ).
+\end{description}
+
+\begin{table}[h]
+\centering
+    \begin{tabular}{ll}
+    \hline
+    \textbf{Text} & \textbf{Label} \\ \hline
+    Wolff & B-PER \\
+    , & O \\
+    currently & O \\
+    a & O \\
+    journalist & O \\
+    in & O \\
+    Argentina & B-LOC \\
+    , & O \\
+    played & O \\
+    with & O \\
+    Del & B-PER \\
+    Bosque & I-PER \\
+    in & O \\
+    the & O \\
+    final & O \\
+    years & O \\
+    of & O \\
+    the & O \\
+    seventies & O \\
+    in & O \\
+    Real & B-ORG \\
+    Madrid & I-ORG \\
+    . & O \\ \hline
+    \end{tabular}
+\caption{Sample Sentence from BERT NER Training Dataset \cite{noauthor_language-independent_2005}}
+\label{tab:ner-dataset}
+\end{table}
+
+\begin{description}
+   \item[Tokenization \& Input Embeddings] Tokenize the input text using the BERT tokenizer and create token and segment ID embeddings for the input sequences. During the training process, the pre-trained body and the classification head parameters are fine-tuned using backpropagation and gradient descent optimization. \cite{merchant_what_2020}
+   
+   \item[Model Architecture:] Add a classification layer on top of the pre-trained BERT model that can identify the named entities in the input text. It typically consists of a fully connected layer and a softmax activation function. (\cite{tunstall_natural_2022})
+   
+   \item[Fine-tuning:] Fine-tune the pre-trained BERT model on the NER task using the training data. During fine-tuning, the pre-trained BERT model and classification head weights are updated based on the task-specific loss function. (\cite{devlin_bert_2019})
+   
+   \item[Validation \& Evaluation:] Validate the fine-tuned model on the validation set. Evaluate the fine-tuned model on the test set and report the performance metrics.
+   
+\end{description}
+
+In summary, to fine-tune BERT for NER, the pre-trained BERT model is used as the base, a classification layer is added on top, and then fine-tune the model on the labeled NER data.

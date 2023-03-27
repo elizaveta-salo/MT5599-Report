@@ -1,0 +1,107 @@
+ \begin{longtable}[H]{| p{3cm} | p{4cm} | p{7cm} |}
+ \hline
+    \multicolumn{2}{|l|}{\textbf{Attribute}} & \textbf{Description} \\
+ \hline
+ \endfirsthead
+
+ \hline
+    \textbf{Object} & \textbf{Attribute} & \textbf{Description} \\
+ \hline
+ \endhead
+
+ \hline
+ \endfoot
+
+ \endlastfoot
+
+    \multicolumn{2}{|l|}{{\fontfamily{qcr}\selectfont id} (integer)}   & Integer representation of the unique identifier for this Tweet. \\
+    \hline
+    
+    \multicolumn{2}{|l|}{{\fontfamily{qcr}\selectfont date} (DateTime)} &   DateTime object with date and time tweet was posted, in UTC time zone. \\
+    \hline
+    
+    \multicolumn{2}{|l|}{{\fontfamily{qcr}\selectfont content} (string)} &   Text content of tweet. \\
+    \hline
+    
+    \multicolumn{2}{|l|}{{\fontfamily{qcr}\selectfont cashtags} (list of strings)} &  Cashtags that have been parsed from text content of the tweet. Cashtags are a way to tag a specific stock or financial asset using the \$ symbol followed by its ticker symbol. They are commonly used by traders, investors, and financial analysts to follow news and conversations related to a particular stock or asset. \\
+    \hline
+    
+    \multicolumn{2}{|l|}{{\fontfamily{qcr}\selectfont hashtags} (list of strings)} &   Hashtags that have been parsed from text content of the tweet . \\
+    \hline
+    
+    \multicolumn{2}{|l|}{{\fontfamily{qcr}\selectfont lang} (string)} &    Language of tweet, automatically detected from text content of the tweet . \\
+    \hline
+    
+    \multicolumn{2}{|l|}{{\fontfamily{qcr}\selectfont likeCount} (integer)} &   Count of likes . \\
+    \hline
+    
+    \multicolumn{2}{|l|}{{\fontfamily{qcr}\selectfont media} (list of objects)} &   Media objects, can be a variety of objects, e.g. photo, gif that determines attributes. \\
+    \hline
+    
+    \multicolumn{2}{|l|}{{\fontfamily{qcr}\selectfont mentionedUsers} (list of objects)} &   User objects of any mentioned user in tweet (list of objects). \\
+    \hline
+    
+    \multicolumn{2}{|l|}{{\fontfamily{qcr}\selectfont quoteCount} (integer)} &   Count of users that quoted the tweet and replied . \\
+    \hline
+    
+    \multicolumn{2}{|l|}{{\fontfamily{qcr}\selectfont quotedTweet} (integer)} &   If is a tweet is quoted, id of original tweet . \\
+    \hline
+    
+    \multicolumn{2}{|l|}{{\fontfamily{qcr}\selectfont renderedContent} (string)} &     Field in the Twitter API response that contains the full text of a tweet, including entities and formatting used in the original tweet. It provides the most complete representation of a tweet's content, as it appears on Twitter's web interface or a user's timeline . \\
+    \hline
+    
+   \multicolumn{2}{|l|}{ {\fontfamily{qcr}\selectfont replyCount} (integer)} &   Count of replies. \\
+    \hline
+    
+    \multicolumn{2}{|l|}{{\fontfamily{qcr}\selectfont retweetCount} (integer)} &   Count of retweets. \\
+    \hline
+    
+    \multicolumn{2}{|l|}{{\fontfamily{qcr}\selectfont retweetedTweet} (integer)}   &  If it is a retweet, id of original tweet. \\
+    \hline
+    
+    \multicolumn{2}{|l|}{{\fontfamily{qcr}\selectfont source} (string)}  & Utility used to post the Tweet, as an HTML-formatted string. \\
+    \hline \hline
+
+    \textbf{Object} & \textbf{Attribute} & \textbf{Description} \\ \hline
+
+    \multirow{5}{1in}{{\fontfamily{qcr}\selectfont place} (object)}
+    & {\fontfamily{qcr}\selectfont country} (string) & Country associated with Place object. \\ \cline{2-3}
+    & {\fontfamily{qcr}\selectfont countryCode} (string) & String of length 2 representing country associated with Place object. \\ \cline{2-3}
+    & {\fontfamily{qcr}\selectfont fullName} (string) & Full name of location in Place object. \\ \cline{2-3}
+    & {\fontfamily{qcr}\selectfont name} (string) & Name of location in Place object. \\ \cline{2-3}
+    & {\fontfamily{qcr}\selectfont type} (string) & Type of location. \\
+    \hline
+
+    {\fontfamily{qcr}\selectfont coordinates} (object)
+    & {\fontfamily{qcr}\selectfont longitude} (float) & Longitude component of coordinates. \\ \cline{2-3}
+    & {\fontfamily{qcr}\selectfont latitude} (float) & Latitude component of coordinates. \\ 
+    \hline
+    
+    {\fontfamily{qcr}\selectfont user} (object)
+    & {\fontfamily{qcr}\selectfont username} (string) & Username of user \\ \cline{2-3}
+    & {\fontfamily{qcr}\selectfont location} (string) & String from free text field on user profile. \\ \cline{2-3}
+    & {\fontfamily{qcr}\selectfont id} (integer) & User ID. \\ \cline{2-3}
+    & {\fontfamily{qcr}\selectfont displayname} (string) & Name on user profile. \\ \cline{2-3}
+    & {\fontfamily{qcr}\selectfont description} (string) & User description, i.e. bio. \\ \cline{2-3}
+    & {\fontfamily{qcr}\selectfont descriptionUrls} (list of strings) & URLs contained in user description. \\ \cline{2-3}
+    & {\fontfamily{qcr}\selectfont verified} (boolean) & True/False value of whether user profile has verified status. \\ \cline{2-3}
+    & {\fontfamily{qcr}\selectfont created} (DateTime) & Date and time user profile was creted. \\ \cline{2-3}
+    & {\fontfamily{qcr}\selectfont followersCount} (username) (integer) & Number of twitter users following the user. \\ \cline{2-3}
+    & {\fontfamily{qcr}\selectfont friendsCount} (integer) & Integer that represents the number of accounts that a user follows on Twitter. \\ \cline{2-3}
+    & {\fontfamily{qcr}\selectfont statusesCount} (integer) & Integer that represents the total number of statuses posted by the user. \\ \cline{2-3}
+    & {\fontfamily{qcr}\selectfont favouritesCount} (integer) &  Integer that indicates the number of times the tweet has been liked (favorited) by users on Twitter.\\ \cline{2-3}
+    & {\fontfamily{qcr}\selectfont listedCount} (integer) & Integer that represents the number of public lists that the tweet's author is a member of. Used as an indication of the author's influence or relevance to a particular topic or community on Twitter.\\ \cline{2-3}
+    & {\fontfamily{qcr}\selectfont mediaCount} (integer)& Integer that indicates the number of media attachments (such as photos, videos, or GIFs) included in a tweet.\\ \cline{2-3}
+    & {\fontfamily{qcr}\selectfont protected} (boolean)& Boolean that indicates whether the tweet was posted by a user with a protected account. If {\fontfamily{qcr}\selectfont True}, the tweet was posted by a user who has chosen to protect their tweets, meaning that only their approved followers can see their tweets. If {\fontfamily{qcr}\selectfont False}, the tweet was posted by a user with a public account, and the tweet can be seen by anyone who has access to Twitter.\\ \cline{2-3}
+    & {\fontfamily{qcr}\selectfont linkUrl} (string) & String that contains the URL of a tweet.\\ \cline{2-3}
+    & {\fontfamily{qcr}\selectfont linkTcourl} (string)& Contains the expanded URL of any links or URLs that were included in the tweet (list of strings).\\ \cline{2-3}
+    & {\fontfamily{qcr}\selectfont profileImageUrl} (string) &  Contains the URL of the profile image of the user who posted the tweet (string).\\ \cline{2-3}
+    & {\fontfamily{qcr}\selectfont profileBannerUrl} (string) & Contains the URL for the banner image of the user who posted the tweet (string).\\ \cline{2-3}
+    & {\fontfamily{qcr}\selectfont label} (string) & Custom field added by snscrape used to represent the Twitter user's account type, such as "verified", "protected", or "suspended". \\ \hline
+
+    
+\caption{Original Columns}
+\label{table:original-columns}
+\end{longtable}
+
+

@@ -1,0 +1,9 @@
+Computers (and language models) cannot use raw strings as input because they are notoriously bad at handling them. To use the full power of computers for language modeling, vectors and matrices are used instead, as matrix multiplication is very efficient. (\cite{tunstall_natural_2022})
+
+\textit{Note:} here "sentence" is defined loosely as a sequence of words that are organized in a grammatically correct way and that convey a coherent meaning.
+
+Consider the sentence, \textit{I saw her duck. It was so cute!} For a computer to understand its meaning, each word can be converted into an embedding vector, which is easy if every word in a language has a corresponding vector. A similar sentence \textit{I saw her duck down to hide.} illustrates the importance of context in language understanding. The word \textit{duck} can have different meanings in these sentences - in the first, it refers to a type of bird, while in the second, it refers to moving down quickly to avoid being seen. (Mohammad Taher Pilehvar and Camacho-Collados, 2022, pp.74–83)
+
+Contextualized embeddings are used to represent the meaning of words in a language accurately. These embeddings consider the context in which a word is used to assign it a vector representation. In the example sentences, \textit{duck} would have different contextualized embeddings based on their meanings. (Mohammad Taher Pilehvar and Camacho-Collados, 2022, pp.74–83)
+
+Formally, an embedding is a distributed representation of words or phrases in a high-dimensional vector space (also known as the semantic space). (Camacho-Collados and Taher Pilehvar, 2022b, pp.1–8)

@@ -1,0 +1,107 @@
+
+Thus far it was taken for granted that the neural network could "learn". The weight matrices that are the crux to BERT's success materialised out of thin air to save the day. The reality is not quite so rosy. The reality invoves calculus.
+In this section, the way in which BERT learns (particularly how the weight matrices are created) will be explained.
+
+The way BERT learns is through backpropagation. 
+
+\subsection{Gradient Descent in Terms of BERT}
+
+Gradient descent is an optimization algorithm commonly used in machine learning to minimize a loss function. In the context of BERT, gradient descent is used to fine-tune the pre-trained base model and the classification head for a specific downstream task such as named entity recognition. 
+
+Given a set of parameters $\theta$ and a loss function $J(\theta)$, the goal of gradient descent is to find the set of parameters that minimizes the loss function. Gradient descent does this by iteratively updating the parameters in the direction of the negative gradient of the loss function. The update rule is as follows:
+
+$$\theta_{t+1} = \theta_t - \alpha \nabla J(\theta_t)$$
+
+where $\theta_t$ represents the parameter values at iteration $t$, $\alpha$ is the learning rate, and $\nabla J(\theta_t)$ is the gradient of the loss function with respect to the parameters.
+
+In the context of BERT, let's assume we have a set of training examples $(x_i, y_i)$, where $x_i$ is a sequence of tokens and $y_i$ is the corresponding set of named entity labels. We want to fine-tune the pre-trained BERT model to perform NER on this dataset. The loss function we want to minimize is the cross-entropy loss between the predicted named entity labels and the true labels:
+
+$$J(\theta) = -\frac{1}{N} \sum_{i=1}^N \sum_{j=1}^M y_{ij} \log(\hat{y}{ij}) + (1 - y{ij}) \log(1 - \hat{y}_{ij})$$
+
+where $\theta$ represents the parameters of the BERT model and the classification head, $N$ is the number of training examples, $M$ is the maximum sequence length, $y_{ij}$ is the true label for the $j$-th token in the $i$-th training example, and $\hat{y}{ij}$ is the predicted probability of the $j$-th token in the $i$-th training example being of the named entity type corresponding to $y{ij}$.
+
+To update the parameters using gradient descent, we need to compute the gradient of the loss function with respect to the parameters. We can use backpropagation to compute this gradient efficiently. The update rule for gradient descent becomes:
+
+$$\theta_{t+1} = \theta_t - \alpha \nabla J(\theta_t)$$
+
+where $\nabla J(\theta_t)$ is the gradient of the loss function with respect to the parameters at iteration $t$.
+
+In practice, the BERT-based NER model is trained using a variant of gradient descent called Adam, which uses adaptive learning rates and momentum to speed up convergence. However, the basic principles of gradient descent remain the same.
+
+
+
+\subsection{Gradient Descent}
+
+Gradient descent is an optimization algorithm used in machine learning to minimize the cost function of a neural network. It is used to update the weights and biases of the neural network by iteratively moving in the direction of steepest descent of the cost function. The gradient of the cost function with respect to the weights and biases is computed and used to update them in the opposite direction of the gradient.
+
+The algorithm can be explained using the following steps:
+
+Initialize the weights and biases of the neural network to random values.
+
+Calculate the output of the neural network for a given input using the current weights and biases.
+
+Compute the cost function for the output of the neural network. The cost function measures how well the network is performing on the given input.
+
+Calculate the gradient of the cost function with respect to the weights and biases using backpropagation.
+
+Update the weights and biases using the following equations:
+
+\begin{align}
+w_{ij} &:= w_{ij} - \alpha \frac{\partial J}{\partial w_{ij}} \
+b_{j} &:= b_{j} - \alpha \frac{\partial J}{\partial b_{j}}
+\end{align}
+
+where $w_{ij}$ is the weight of the connection between neuron $i$ in the previous layer and neuron $j$ in the current layer, $b_{j}$ is the bias of neuron $j$ in the current layer, $\alpha$ is the learning rate (a hyperparameter that determines the step size of the update), and $\frac{\partial J}{\partial w_{ij}}$ and $\frac{\partial J}{\partial b_{j}}$ are the partial derivatives of the cost function with respect to the weights and biases, respectively.
+
+Repeat steps 2-5 for all training examples in the dataset, for a fixed number of iterations (epochs) or until the cost function reaches a minimum.
+The gradient descent algorithm can be further optimized using techniques such as batch gradient descent, stochastic gradient descent, and mini-batch gradient descent. Batch gradient descent computes the gradient of the cost function with respect to the weights and biases using the entire training dataset. Stochastic gradient descent computes the gradient for each training example individually. Mini-batch gradient descent computes the gradient for a small batch of training examples at a time.
+
+In summary, gradient descent is an optimization algorithm used in machine learning to minimize the cost function of a neural network. It updates the weights and biases of the neural network by iteratively moving in the direction of steepest descent of the cost function, using the partial derivatives of the cost function with respect to the weights and biases. The learning rate controls the step size of the update, and different versions of gradient descent can be used depending on the size of the training dataset and the resources available.
+
+
+\subsection{Backpropagation}
+
+Backpropagation is a widely used algorithm for computing the gradient of the cost function with respect to the weights and biases of a neural network. The algorithm computes the gradient by recursively applying the chain rule of calculus to propagate the errors backwards from the output layer to the input layer.
+
+The backpropagation algorithm can be explained using the following steps:
+
+Forward propagation: Calculate the output of the neural network for a given input by passing it through the layers of the network, using the current weights and biases.
+
+Compute the cost function for the output of the neural network. The cost function measures how well the network is performing on the given input.
+
+Backward propagation: Compute the error of the output layer with respect to the cost function, and then recursively propagate this error backwards through the layers of the network.
+
+The error of the output layer is given by:
+
+\begin{equation}
+\delta^{L}_j = \frac{\partial J}{\partial a^{L}_j} \sigma^{\prime}(z^{L}_j)
+\end{equation}
+
+where $J$ is the cost function, $a^{L}_j$ is the output of neuron $j$ in the output layer, $z^{L}_j$ is the weighted input of neuron $j$ in the output layer, $\sigma$ is the activation function, and $\sigma^{\prime}$ is its derivative. The partial derivative of the cost function with respect to the output of neuron $j$ in the output layer is given by:
+
+\begin{equation}
+\frac{\partial J}{\partial a^{L}_j}
+\end{equation}
+
+The error is then propagated backwards to the previous layer using the following equation:
+
+\begin{equation}
+\delta^{l}j = (\sum_k w{jk}\delta^{l+1}_k) \sigma^{\prime}(z^{l}_j)
+\end{equation}
+
+where $w_{jk}$ is the weight of the connection between neuron $j$ in layer $l$ and neuron $k$ in layer $l+1$, and $\delta^{l+1}_k$ is the error of neuron $k$ in layer $l+1$.
+
+Compute the partial derivative of the cost function with respect to the weights and biases using the errors propagated backwards through the layers. The partial derivative of the cost function with respect to the weight $w_{ij}$ is given by:
+\begin{equation}
+\frac{\partial J}{\partial w_{ij}} = a^{l-1}_i \delta^{l}_j
+\end{equation}
+
+The partial derivative of the cost function with respect to the bias $b_j$ is given by:
+
+\begin{equation}
+\frac{\partial J}{\partial b_j} = \delta^{l}_j
+\end{equation}
+
+Use the computed partial derivatives to update the weights and biases using an optimization algorithm such as gradient descent.
+
+In summary, backpropagation is an algorithm used to compute the gradient of the cost function with respect to the weights and biases of a neural network. The algorithm recursively propagates the errors backwards from the output layer to the input layer, and uses these errors to compute the partial derivatives of the cost function with respect to the weights and biases. These partial derivatives are then used to update the weights and biases using an optimization algorithm such as gradient descent.

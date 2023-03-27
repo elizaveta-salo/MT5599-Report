@@ -1,0 +1,68 @@
+ \begin{longtable}[H]{| p{4cm} | p{9cm} |}
+ \hline
+    \textbf{Attribute} & \textbf{Description} \\
+ \hline
+ \endfirsthead
+
+ \hline
+    \textbf{Attribute} & \textbf{Description} \\
+ \hline
+ \endhead
+
+ \hline
+ \endfoot
+
+ \endlastfoot
+
+    {\fontfamily{qcr}\selectfont id} & Integer representation of the unique identifier for this Tweet.\\
+    \hline
+    {\fontfamily{qcr}\selectfont DateTime} & DateTime object with date and time tweet was posted, in UTC time zone. \\
+    \hline
+    {\fontfamily{qcr}\selectfont coordinates} & {\fontfamily{qcr}\selectfont Coordinates} object (see Table \ref{table:original-columns} for details)\\
+    \hline
+    {\fontfamily{qcr}\selectfont place} &  {\fontfamily{qcr}\selectfont Place} object (see Table \ref{table:original-columns} for details) \\
+    \hline
+    {\fontfamily{qcr}\selectfont username} & Username associated with posting the tweet. Extracted from {\fontfamily{qcr}\selectfont User} object. \\
+    \hline
+    {\fontfamily{qcr}\selectfont user\_id} & User ID extracted from {\fontfamily{qcr}\selectfont user} object. \\
+    \hline
+    {\fontfamily{qcr}\selectfont user\_location} & User location extracted from {\fontfamily{qcr}\selectfont User} object.\\
+    \hline
+    {\fontfamily{qcr}\selectfont tweet\_content} & \\
+    \hline
+    {\fontfamily{qcr}\selectfont lang} & Language of tweet, automatically detected from text content of the tweet .\\
+    \hline
+    {\fontfamily{qcr}\selectfont tweet\_clean} & Text content of tweet; cleaned version of {\fontfamily{qcr}\selectfont tweet\_content}\\
+    \hline
+    {\fontfamily{qcr}\selectfont place\_full\_name} & Full name of geotagged location; extracted from {\fontfamily{qcr}\selectfont place} object. \\
+    \hline
+    {\fontfamily{qcr}\selectfont place\_name} & Name of geotagged location; extracted from {\fontfamily{qcr}\selectfont place} object. \\
+    \hline
+    {\fontfamily{qcr}\selectfont place\_type} & Type of geotagged location; extracted from {\fontfamily{qcr}\selectfont place} object. \\
+    \hline
+    {\fontfamily{qcr}\selectfont place\_country} & Country of geotagged location; extracted from {\fontfamily{qcr}\selectfont place} object. \\
+    \hline
+    {\fontfamily{qcr}\selectfont place\_country\_code} & Country code of geotagged location; extracted from {\fontfamily{qcr}\selectfont place} object.  \\
+    \hline
+    {\fontfamily{qcr}\selectfont coordinates\_longitude} & Longitude component of coordinates; extracted from {\fontfamily{qcr}\selectfont coordinates} object \\
+    \hline
+    {\fontfamily{qcr}\selectfont coordinates\_latitude} & Latitude component of coodinates; extracted from {\fontfamily{qcr}\selectfont coordinates} object\\
+    \hline
+    {\fontfamily{qcr}\selectfont ner\_type} & Named entity type of {\fontfamily{qcr}\selectfont ner\_word} - {\fontfamily{qcr}\selectfont ORG, LOC, PER} \\
+    \hline
+    {\fontfamily{qcr}\selectfont ner\_word} & Named entity extracted from text content of tweet. \\
+    \hline
+    {\fontfamily{qcr}\selectfont gmaps\_lat} & Latitude component of coordinates obtained by geoparsing {\fontfamily{qcr}\selectfont LOC} named entities. Only available for tweets with {\fontfamily{qcr}\selectfont ner\_type == LOC} \\
+    \hline
+    {\fontfamily{qcr}\selectfont gmaps\_long} & Longitude component of coordinates obtained by geoparsing {\fontfamily{qcr}\selectfont LOC} named entities. Only available for tweets with {\fontfamily{qcr}\selectfont ner\_type == LOC}\\
+    \hline
+    {\fontfamily{qcr}\selectfont gmaps\_address} & Address of location obtained by geoparsing {\fontfamily{qcr}\selectfont LOC} named entities. Only available for tweets with {\fontfamily{qcr}\selectfont ner\_type == LOC}\\
+    \hline
+    {\fontfamily{qcr}\selectfont distance} & Geodesic distance between coordinates ({\fontfamily{qcr}\selectfont coordinates\_longitude, coordinates\_latitude}) and ({\fontfamily{qcr}\selectfont gmaps\_lat, gmaps\_long})\\
+ 
+    \hline
+
+    
+\caption{Processed Tweets Columns}
+\label{table:final-columns}
+\end{longtable}

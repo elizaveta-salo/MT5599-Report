@@ -1,0 +1,74 @@
+
+%There is no mention of the specific limitations of the second approach used to collect tweets, which was based on filtering users based on language and location. It would be helpful to address potential issues with this method, such as whether it could exclude certain demographics or whether there could be biases introduced by language filtering.
+
+%There is no mention of how the NER model was trained and what kind of data it was trained on. This information could help explain the misclassifications observed and provide insight into how to improve the model's accuracy.
+
+%It would be helpful to provide more information on how the Google Geocoding API works and what factors could affect its accuracy. This information could help explain the low success rate of geoparsing and provide insights into how to improve it.
+
+\section{How can tweets be collected from a geographically-defined set of users?}
+
+The traditional method of collecting tweets (Section \ref{approach-1}) did not yield a sufficient volume of tweets and the distribution of tweets was not what was expected. This was likely due to how the search function works on Twitter.
+
+The second approach (Section \ref{approach-2}) yielded much more promising results. It is estimated that 1\% of tweets are geotagged, so the data collection method used yielding 30\% which was certainly fortuitous. This was likely because the usernames were extracted based on whether the user geotagged Argentina in their tweet, so the users were more likely to geotag their location.
+
+It is unknown how Twitter determines where a tweet came from, so collecting tweets based on location-based search criteria can be unreliable. It could be a combination of IP address, user location and geotag. With public geotagged tweets, it is unambiguous what the user claimed as their location (as there is seemingly no way to know the ground truth from available data).
+
+The distribution of countries geotagged in tweets and geotagged by users make sense, since Argentina was geotagged most often and over half of the other 20 most mentioned countries in Table \ref{table:geotagged-countries} were from countries in the Americas. The spike in tweets geotagged with Brazil seen between 1st and 9th epi weeks corresponds to the Brazilian Carnival, celebrated in February. The United States is geotagged most often in general (apart from Argentina), however it would be interesting to investigate whether there are trends within specific locations (geotags in New York, Los Angeles, Miami, etc. and whether these correspond to tourist seasons). 
+
+Choosing a geographically defined set of users by using a broad commonality like language spoken (e.g. Spanish), then filtering based on country, seems to result in a higher volume of higher quality tweets (more geotagged) than using geographical search parameters alone. This also means our data likely has more Argentinian and Central/South American residents than tourists due to the language filter.
+
+Further data analysis can provide more insights into the geotagged data. Here are some ways in which the data can be further analyzed:
+\begin{description}
+    \item[Types of Tweets] Analyzing the content of geotagged tweets can provide insights into the types of topics and conversations that are prevalent in different locations. For example, analyzing the use of hashtags in geotagged tweets can reveal the most commonly used hashtags in different locations, and this can be used to identify the topics that are currently popular in those locations. Additionally, what proportions of tweets contain only links? How many mention other users?
+    \item[Types of Users] The geotagged data can be used to identify the types of users who are active in different locations. For example, analyzing the frequency of tweets by different users can help identify frequent tweeters, while analyzing the use of links in tweets can identify event promoters and organizations.
+    \item[Real People vs. Spam Accounts] Analyzing the patterns of tweets can help identify which accounts are likely to be spam accounts or bots, and which are likely to be real people. For example, accounts that tweet very frequently or use very similar phrasing in their tweets may be more likely to be bots.
+    \item[Username Collection] Analyzing the usernames collected over three days can reveal whether there are any patterns or trends in the types of users who are active on specific days of the week. This can be used to identify the best days for collecting geotagged data in order to get the most representative sample.
+    \item[Visits to Argentina] Argentina was geotagged most often at the end of 2015, after which there was a steady decline. What caused this? Might tweeters be most active around that time?
+\end{description}
+
+\section{Can NLP be used to derive location information from tweet content?}
+
+For decades, NLP has been used to extract various entities, but the transformer architecture, which is relatively new and produces similar results for NER, has been gaining popularity (\cite{vaswani_attention_2017}). In the total tweets collected, less than 4\% mentioned a location. Upon further inspection, it was discovered that some of the mentioned locations were misclassified by the BERT NER model as organizations. This may be due to the difficulty of extracting named entities from short texts like tweets.
+
+Out of all the tweets collected, only 1.65\% were successfully geoparsed through the Google Geocoding API. Given the misclassifications in NER, it would be interesting to investigate whether a gazetteer would be more effective than BERT followed by the Geocoding API.
+
+Argentina was mentioned in over 52\% of tweets, whereas if the mentions are aggregated by user, Argentina was mentioned only 12\% of the time. This suggests that more users are mentioning Argentina more often than any other country.
+
+When investigating mentions in tweets, a similar spike in mentions of Brazil was observed, but it was much smaller compared to the geotags of Brazil. This may be due to mentions being a smaller subset of tweets, and it may not necessarily mean that the location was mentioned in the tweet. It could also be because the BERT NER model did not identify the location, or the Google Geoparser API is incorrectly mapping the location.
+
+Additionally, the Google Geocoding API may also be inaccurately disambiguating locations, such as Cordoba in Spain versus Argentina. It is also unknown how many locations have two names, such as "USA" and "United States". The inaccuracy may also be due to the fact that the tweets were mostly in Spanish, and the Google Geocoding API may not work as well in disambiguating those. Previous studies have suggested that a multilingual gazetteer may work better, as seen in \cite{wang_enhancing_2019}.
+
+During the analysis of mentioned tweets, the locations "United States" and "USA" were not aggregated, and the analysis had to be halted due to technical restrictions of the cloud computing platform used.
+
+While the frequency of geotags of Argentina declined over time, the mentions remained mostly constant over the chosen time period, with a few spikes.
+
+Initially, it was hypothesized that there would be more tweets with mentioned locations than geotagged tweets, but this was not the case likely due to the data collection method. While mentioned locations were more granular by default, they are likely less useful than the geotagged tweets themselves due to there being fewer of them and potentially further away from the ground truth of where the user was (as indicated by the proportionally more mentions of "USA" than geotags of "USA").
+
+Further analysis could be done to investigate how many other countries have more than one location name, and whether mentions of organizations and people indicate anything about the content of the tweets and user segregation.
+
+\section{Are geotagged locations and mentioned locations measuring the same thing?}
+
+The percentage of tweets that had both a geotag and a geoparsed mention was very low at 0.94\%. However, this was the only way to compare the two. Previous research considered geotags to be the ground truth \cite{wang_enhancing_2019}, but this must be investigated further before this data is used for investigating regional travel patterns.
+
+The reason for the discrepancy could be that people are tweeting about a location that they are not actually in. For example, 96\% of tweets that had both a geotag and a mention were about Argentina, but this is significantly lower than the accuracy of geotags within 1000km. This suggests that even if a tweet has a geotag and a mention with the same country, they are likely not in the same location (at least 1000km apart).
+
+Overall, geotags and mentions are not always the same, as only 36\% of geoparsed geotagged tweets had the same country. Over 64\% of tweets did not even have the same country, and less than 50\% of coordinates were within 100km of each other.
+
+The granularity of geotagged tweets could not be investigated, but comparing tweets with both a geotag and a geoparsed location within a small radius could reveal the types of locations people visit and the purpose of their travel.
+
+Further analysis could aggregate tweets from each user for each week and provide more context for extracting entities and locations. This could help distinguish between when a user is talking about a place or talking about being in that place.
+
+% distribution of geotagged and mentioned countries (tweets vs users)
+%The distribution of countries in Figures 4.3 and 4.4 closely follow each other, meaning the effect of any biases due to people spamming tweets is minimal. This is similar to Figures 4.8 and 4.9. The spike for geotagged tweets in Brazil is higher than mentioned tweets, which suggests more people geotagged Brazil than mentioned it in their tweets. This was likely about Carnaval, and could either be due to Geocoding API not mapping references to carnaval correctly or people genuinely geotagging more than mentioning Brazil.
+
+% Is it because Google API isn't the best choice for accurately geoparsing NLP toponyms?
+% Is it because some of these tools were developed for use in English?
+% You can also suggest ideas for improvement or further investigation: maybe the geotags need to be geoparsed first.
+% Maybe another gazetteer would be better.
+% Maybe all tweets from a user in a week need to be put together so NLP has a larger body of text to read.
+% Maybe user information could be combined with the tweet text in some way.
+% Maybe a more interesting question in the future is if NLP can tell the difference between a user talking about a place versus talking about where they are.
+% What might NLP need to make that work.
+% I'm not saying you have to do any of these, but a good discussion section talks about the limitations of the work that's been done, possible explanations for what has been found, and ideas for next steps. 
+
+% Don't stress about not being able to relate any of this to dengue - remember you are working to see if this method works in general. I think you have found that this is a really complex problem and "solving" it is probably beyond the scope of your honours project. But you have found a lot of helpful and interesting things about working with this type of data!!
